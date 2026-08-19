@@ -1,0 +1,885 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form"
+	xmlns:u="sap.uxap" controllerName="sap.abp.eSeparation.approve.views.RequestsDetail"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.disAppTitle'}" showNavButton="{device>/isPhone}"
+		navButtonPress="sap.abp.eSeparation.approve.Common.onNavBack">
+		<content>
+			<u:ObjectPageLayout showTitleInHeaderContent="true"
+				enableLazyLoading="false">
+				<u:headerTitle>				<!--"{detail>/Pernr} / {detail>/Ename}"-->
+					<u:ObjectPageHeader objectImageURI="{pic>/url}"
+						objectImageShape="Circle" objectTitle="{detail>/Ename}"
+						objectSubtitle="{detail>/Pernr}" isObjectTitleAlwaysVisible="false"
+						isObjectSubtitleAlwaysVisible="false">
+					</u:ObjectPageHeader>
+				</u:headerTitle>
+				<u:headerContent>
+					<l:HorizontalLayout>
+						<Label text="{detail>/Earqn}"></Label>
+					</l:HorizontalLayout>
+<!--					<l:HorizontalLayout>
+						<Label
+							text="Creation Date: {path:'detail>/Eaiod',
+									  formatter:'sap.abp.eSeparation.approve.Common.formatDate'}"></Label>
+					</l:HorizontalLayout>-->
+					<l:VerticalLayout>
+						<ObjectAttribute id="empSbu" title="SBU" text="{detail>/Sbutxt}"/>
+						<ObjectAttribute id="empDept" title="Org. Unit" text="{detail>/Dept}"/>
+						<ObjectAttribute id="empGrade" title="Grade" text="{detail>/Grade}"/>
+						<ObjectAttribute id="empLocation" title="Location" text="{detail>/Location}"/>
+						<ObjectAttribute id="empDtJoin" title="Date of Joining" text="{detail>/Begda}"/>
+						<!--<ObjectAttribute id="empRM" title="Reporting Manager" text="{detail>/RM}"/>-->
+						<ObjectAttribute id="empEsepCreateDt" title="Date of Resignation" 
+										 text="{path:'sepHeader>/DtReg', formatter:'sap.abp.eSeparation.approve.Common.formatDate'}"/>
+					</l:VerticalLayout>
+					<l:VerticalLayout>
+						<!--<Label text="Status: {detail>/Eaist}"></Label>-->
+						<Label text="Approver Name: {detail>/Aname}" />
+						<Label text="Approver Role: {detail>/Earlx}"></Label>
+						<!--<Label text="AP Grp.: {detail>/Eaagn}"></Label>-->
+						<!-- <Label text="Date of Joining: {detail>/Begda}"></Label> -->
+					</l:VerticalLayout>
+				</u:headerContent>
+				<u:sections>
+					<u:ObjectPageSection title="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.dis_title'}"
+											titleUppercase='false'>
+						<u:subSections>
+							<u:ObjectPageSubSection title="">
+								<u:blocks>
+									<f:SimpleForm id="editFormId" minWidth="1024"
+										maxContainerCols="2" editable="true" layout="ResponsiveGridLayout"
+										labelSpanL="4" labelSpanM="4" emptySpanL="0" emptySpanM="0"
+										columnsL="2" columnsM="2">
+										<f:content>
+											<Label text="Action Type" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_sepReason'}"/>
+											<Text text="{sepHeader>/Mntxt}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_sepReason'}"></Text>
+<!--											<Label text="Reason for Action" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_sepReason'}"/>
+											<Text text="{sepHeader>/Mgtxt}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_sepReason'}"></Text>-->
+											<!--Detailed Reason-->
+											<Label text="Reason for Action" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_sepReason'}"/>
+											<Text text="{sepHeader>/Eadrt}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_sepReason'}"></Text>
+
+											<Label text="Tendering Resignation Date" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_emplwd'}" wrapping="true"/>
+											<Text id="tRDate" wrapping="true" text="{path:'sepHeader>/DtReg', formatter:'sap.abp.eSeparation.approve.Common.formatDate'}"
+												  visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_emplwd'}">
+												<layoutData>
+													<l:GridData span="XL1 L2 M2 S2" />
+												</layoutData>
+											</Text>
+											
+											<Label text="Last Working Day proposed by Employee" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_emplwd'}" wrapping="true"/>
+											<Text id="tLwdEmp" wrapping="true" text="{path:'sepHeader>/R_eardt', formatter:'sap.abp.eSeparation.approve.Common.formatDate'}"
+												  visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_emplwd'}">
+												<layoutData>
+													<l:GridData span="XL1 L1 M2 S2" />
+												</layoutData>
+											</Text>
+											 <!--selected="true"-->
+											<RadioButton id="RB2-1" text="" select="onLwdRdb" groupName="RB2"
+														 visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_rbtnEmpSys'}">
+												<layoutData>
+													<l:GridData span="XL1 L1 M2 S2" />
+												</layoutData>
+											</RadioButton>
+											<Label text="Last Working Day proposed by System" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_slwd'}" wrapping="true"/>
+											<Text id="tLwdSys" wrapping="true" text="{path:'sepHeader>/LastWorkSys', formatter:'sap.abp.eSeparation.approve.Common.formatDate'}"
+												  visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_slwd'}">
+												<layoutData>
+													<l:GridData span="XL1 L1 M2 S2" />
+												</layoutData>
+											</Text>
+											<RadioButton id="RB2-2" text="" select="onLwdRdb" groupName="RB2" 
+											             visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_rbtnEmpSys'}">
+												<layoutData>
+													<l:GridData span="XL1 L1 M2 S2" />
+												</layoutData>
+											</RadioButton>
+											<Label text="Last Working Day proposed by RS/RM 1"  wrapping="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.visLwdRm1'}"/>
+											<Text id="tLwdRm1" wrapping="true" text="{path:'sepHeader>/LastWorkSys_RM1', formatter:'sap.abp.eSeparation.approve.Common.formatDate'}"
+												  visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.visLwdRm1'}">
+												<layoutData>
+													<l:GridData span="XL1 L1 M2 S2" />
+												</layoutData>
+											</Text>
+											<RadioButton id="RB2-3" text="" select="onLwdRdb" groupName="RB2" 
+											             visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_rbtnRm1'}">
+												<layoutData>
+													<l:GridData span="XL1 L1 M2 S2" />
+												</layoutData>
+											</RadioButton>
+											<Label text="Last Working Day proposed by Editor/Departmental Head" wrapping="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.visLwdHod'}"/>
+											<Text id="tLwdHod" wrapping="true" text="{path:'sepHeader>/LastWorkSys_HOD', formatter:'sap.abp.eSeparation.approve.Common.formatDate'}"
+												  visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.visLwdHod'}">
+												<layoutData>
+													<l:GridData span="XL1 L1 M2 S2" />
+												</layoutData>
+											</Text>
+											<RadioButton id="RB2-4" text="" select="onLwdRdb" groupName="RB2" 
+											             visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_rbtnHod'}">
+												<layoutData>
+													<l:GridData span="XL1 L1 M2 S2" />
+												</layoutData>
+											</RadioButton>
+													
+											<Label text="Last Working Day proposed by Exec. Editor/Functional Head" wrapping="true" visible="{parts: [ { path:'sepHeader>/Role'}, {path: 'sepHeader>/LastWorkSys_HOD2'}], formatter:'sap.abp.eSeparation.approve.Common.visLwdHod2'}"/>
+											<Text id="tLwdHod2" wrapping="true" text="{path:'sepHeader>/LastWorkSys_HOD2', formatter:'sap.abp.eSeparation.approve.Common.formatDate'}"
+												  visible="{parts: [ { path:'sepHeader>/Role'}, {path: 'sepHeader>/LastWorkSys_HOD2'}], formatter:'sap.abp.eSeparation.approve.Common.visLwdHod2'}">
+												<layoutData>
+													<l:GridData span="XL1 L1 M2 S2" />
+												</layoutData>
+											</Text>
+											<RadioButton id="RB2-5" text="" select="onLwdRdb" groupName="RB2" 
+											             visible="{parts: [ { path:'sepHeader>/Role'}, {path: 'sepHeader>/LastWorkSys_HOD2'}], formatter:'sap.abp.eSeparation.approve.Common.vis_rbtnHod2'}">
+												<layoutData>
+													<l:GridData span="XL1 L1 M2 S2" />
+												</layoutData>
+											</RadioButton>
+											
+											<Label text="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.dis_LwdLabel'}" wrapping="true"
+												   visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_lwd'}"/>
+											<DatePicker id="dateRelieveId" width="60%" class="sapUiSmallMarginEnd"
+												placeholder="Enter Relieving Date..." value="{sepHeader>/LastWork}" change="onPlwdChange"
+												visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_lwd'}"
+												editable="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_lwd'}">
+<!--												<layoutData>
+													<l:GridData span="XL3 L4 M4 S4" />
+												</layoutData>-->
+											</DatePicker>
+												<!--valueFormat="yyyyMMdd" displayFormat="long" -->
+											<Text id="dateRelieveNoteId" text="(Date can be changed, if required)" class="sapUiTinyMarginBegin"
+												   visible="false">
+												<!--visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_lwd'}"-->
+<!--												<layoutData>
+													<l:GridData span="XL3 L4 M4 S4" />
+												</layoutData>-->
+											</Text>
+
+											<Label text="Notice Period as per Appointment Letter" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_ntcprd'}" wrapping="true"/>
+											<Text text="{sepHeader>/NtcprdOffer}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_ntcprd'}"></Text>
+											<!-- 2nd phase-->
+											<Label text="Notice Period being served" wrapping="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_ntcprd'}"/>
+											<Text id="tNtcp" text="{sepHeader>/NoticePeriod}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_ntcprd'}"></Text>
+<!--											<Input id="i_ntcpd" value="{sepHeader>/ShortNotice}" editable="false" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_ntcprd'}">
+												<layoutData>
+													<l:GridData span="XL1 L2 M2 S3" />
+												</layoutData>
+											</Input>
+											<RadioButton id="RB1-1" text="Fully" select="onNtcpdRdb" groupName="RB1" selected="true"
+														 visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_ntcprd'}">
+												<layoutData>
+													<l:GridData span="XL1 L2 M2 S3" />
+												</layoutData>
+											</RadioButton>
+											<RadioButton id="RB1-2" text="Partially" select="onNtcpdRdb" groupName="RB1" 
+											             visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_ntcprd'}">
+												<layoutData>
+													<l:GridData span="XL1 L2 M2 S3" />
+												</layoutData>
+											</RadioButton>-->
+<!--											<Button id="Save" text="Save" type="Emphasized" press="onNtcPrd" 
+											        visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_ntcprd'}"></Button>-->
+
+											<Label text="Earned Leave Balance (as per Joining Cycle)" wrapping="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_lvBal'}"/>
+											<Text id="lvBal" text="{sepHeader>/LeaveBal}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_lvBal'}"/>
+											<!-- 2nd phase -->
+<!--  											<Label text="" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_fiedls'}" wrapping="true"/>  -->
+<!--  										    <Text text="{sepHeader>/NtcprdOffer}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_fiedls'}"></Text> -->
+											
+											<Label text="Adjustment of Leave against Short Notice" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_fiedls'}" wrapping="true"/>
+											<Input  id="leaveadjASN" type="Number" textAlign="left" maxLength="5" class="sapUiSmallMarginBottom" value="{sepHeader>/Leaveadj}" editable="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_fiedls'}"
+													liveChange="onshrtNtcWvr" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_fiedls'}">
+											<layoutData>
+													<l:GridData span="XL1 L1 M1 S3" />
+												</layoutData>
+											</Input>
+											
+											<!-- 2nd phase -->
+<!--											<Label text="Short Notice by Employee" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_empShNt'}"/>
+											<Text text="{sepHeader>/SHORTNOTICE_EMP}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_empShNt'}"/>
+											<Label text="Short Notice by RM" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_rmShNt'}"/>
+											<Text text="{sepHeader>/SHORTNOTICE_RM1}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_rmShNt'}"/>-->
+											<Label text="Short Notice" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_ShNt'}"/>
+											<Text id="shortNotice" text="{sepHeader>/ShortNotice}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_ShNt'}"/>
+											<Label text="Short Notice Waiver" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_ShNtWvr'}"/>
+											<!--<Text id="shortNoticeWvr" text="{sepHeader>/SHORTNOTICE_Waiver}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_ShNtWvr'}"/>-->
+											<Input id="shortNoticeWvr" value="{sepHeader>/SHORTNOTICE_Waiver}" textAlign="left" maxLength="5" type="Number" liveChange="onshrtNtcWvr" 
+													visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_ShNtWvr'}"
+													editable="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_ShNtWvrEdit'}">
+												<layoutData>
+													<l:GridData span="XL1 L1 M1 S3" />
+												</layoutData>
+											</Input>
+											<Label text="Short Notice Deduction" wrapping="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_ShNtDedction'}"/>
+											<Text id="shortNoticeDdctn" text="{sepHeader>/SHORTNOTICE_Deduction}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_ShNtDedction'}"/>
+																								
+											<Label text="Remarks (Employee)" wrapping="true" visible="{parts: [ { path:'sepHeader>/Role'}, {path: 'sepHeader>/REMARK_EMP'}], formatter:'sap.abp.eSeparation.approve.Common.vis_empRmrk'}"/>
+											<Text id="t_empRemark" wrapping="true" maxLength="200"  text="{sepHeader>/REMARK_EMP}" visible="{parts: [ { path:'sepHeader>/Role'}, {path: 'sepHeader>/REMARK_EMP'}], formatter:'sap.abp.eSeparation.approve.Common.vis_empRmrk'}"/>
+<!--											<TextArea id="ta_empRemark" value="{sepHeader>/REMARK_EMP}" rows="3" cols="20" maxLength="200" editable="false" 
+													  visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_empRmrk'}"/>-->
+											<Label text="Remarks (Reporting Supervisor/Manager 1)" wrapping="true" visible="{parts: [ { path:'sepHeader>/Role'}, {path: 'sepHeader>/REMARK_RM1'}], formatter:'sap.abp.eSeparation.approve.Common.vis_rm1Rmrk'}"/>
+											<Text id="t_rm1Remark" wrapping="true" text="{sepHeader>/REMARK_RM1}" visible="{parts: [ { path:'sepHeader>/Role'}, {path: 'sepHeader>/REMARK_RM1'}], formatter:'sap.abp.eSeparation.approve.Common.vis_rm1Rmrk'}"/>
+<!--											<TextArea id="ta_rm1Remark" value="{sepHeader>/REMARK_RM1}" rows="3" cols="20" maxLength="200" editable="false" 
+											          visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_rm1Rmrk'}"/>-->
+											<Label text="Remarks (Reporting Supervisor/Manager 2)" wrapping="true" visible="{parts: [ { path:'sepHeader>/Role'}, {path: 'sepHeader>/REMARK_RM2'}], formatter:'sap.abp.eSeparation.approve.Common.vis_rm2Rmrk'}"/>
+											<Text id="ta_rm2Remark" wrapping="true" text="{sepHeader>/REMARK_RM2}" visible="{parts: [ { path:'sepHeader>/Role'}, {path: 'sepHeader>/REMARK_RM2'}], formatter:'sap.abp.eSeparation.approve.Common.vis_rm2Rmrk'}"/>
+<!--											<TextArea id="ta_rm2Remark" value="{sepHeader>/REMARK_RM2}" rows="3" cols="20" maxLength="200" editable="false" 
+													  visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_rm2Rmrk'}"/>-->
+											<Label text="Remarks (Reporting Supervisor/Manager 3)" wrapping="true" visible="{parts: [ { path:'sepHeader>/Role'}, {path: 'sepHeader>/REMARK_RM3'}], formatter:'sap.abp.eSeparation.approve.Common.vis_rm3Rmrk'}"/>
+											<Text id="ta_rm3Remark" wrapping="true" text="{sepHeader>/REMARK_RM3}" visible="{parts: [ { path:'sepHeader>/Role'}, {path: 'sepHeader>/REMARK_RM3'}], formatter:'sap.abp.eSeparation.approve.Common.vis_rm3Rmrk'}"/>
+<!--											<TextArea id="ta_rm3Remark" value="{sepHeader>/REMARK_RM3}" rows="3" cols="20" maxLength="200" editable="false"
+													  visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_rm3Rmrk'}"/>-->
+											<Label text="Remarks (Editor/Departmental Head)" wrapping="true" visible="{parts: [ { path:'sepHeader>/Role'}, {path: 'sepHeader>/REMARK_HOD'}], formatter:'sap.abp.eSeparation.approve.Common.vis_hodRmrk'}"/>
+											<Text id="t_hodRemark" wrapping="true" text="{sepHeader>/REMARK_HOD}" visible="{parts: [ { path:'sepHeader>/Role'}, {path: 'sepHeader>/REMARK_HOD'}], formatter:'sap.abp.eSeparation.approve.Common.vis_hodRmrk'}"/>
+<!--											<TextArea id="ta_hodRemark" value="{sepHeader>/REMARK_HOD}" rows="3" cols="20" maxLength="200" editable="false" 
+													  visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_hodRmrk'}"/>-->
+																												
+											<Label text="Remarks (Exec. Editor/Functional Head)" wrapping="true" visible="{parts: [ { path:'sepHeader>/Role'}, {path: 'sepHeader>/REMARK_HOD2'}], formatter:'sap.abp.eSeparation.approve.Common.vis_hod2Rmrk'}"/>
+											<Text id="t_hod2Remark" wrapping="true" text="{sepHeader>/REMARK_HOD2}" visible="{parts: [ { path:'sepHeader>/Role'}, {path: 'sepHeader>/REMARK_HOD2'}], formatter:'sap.abp.eSeparation.approve.Common.vis_hod2Rmrk'}"/>
+											<Label text="Remarks (HR)" wrapping="true" visible="{parts: [ { path:'sepHeader>/Role'}, {path: 'sepHeader>/REMARK_HRBP'}], formatter:'sap.abp.eSeparation.approve.Common.vis_hrRmrk'}"/>
+											<Text id="t_hrRemark" wrapping="true" text="{sepHeader>/REMARK_HRBP}" visible="{parts: [ { path:'sepHeader>/Role'}, {path: 'sepHeader>/REMARK_HRBP'}], formatter:'sap.abp.eSeparation.approve.Common.vis_hrRmrk'}"/>
+											<Label text="Remarks (HR Head)" wrapping="true" visible="{parts: [ { path:'sepHeader>/Role'}, {path: 'sepHeader>/REMARK_HR_HEAD'}], formatter:'sap.abp.eSeparation.approve.Common.vis_hrHeadRmrk'}"/>
+											<Text id="t_hrHeadRemark" wrapping="true" text="{sepHeader>/REMARK_HR_HEAD}" visible="{parts: [ { path:'sepHeader>/Role'}, {path: 'sepHeader>/REMARK_HR_HEAD'}], formatter:'sap.abp.eSeparation.approve.Common.vis_hrHeadRmrk'}"/>
+																										
+											<Label text="Functional Clearance comments" wrapping="true" visible="{parts: [ { path:'sepHeader>/Role'}, {path: 'sepHeader>/REMARK_MGR_CLEARANCE'}], formatter:'sap.abp.eSeparation.approve.Common.vis_clrnComments'}"/>
+											<Text id="t_functClrncRmrks" wrapping="true" text="{sepHeader>/REMARK_MGR_CLEARANCE}" visible="{parts: [ { path:'sepHeader>/Role'}, {path: 'sepHeader>/REMARK_MGR_CLEARANCE'}], formatter:'sap.abp.eSeparation.approve.Common.vis_clrnComments'}"/>
+											<Label text="Finance Clearance comments" wrapping="true" visible="{parts: [ { path:'sepHeader>/Role'}, {path: 'sepHeader>/REMARK_FINANCE_CLEARANCE'}], formatter:'sap.abp.eSeparation.approve.Common.vis_clrnComments'}"/>
+											<Text id="t_finClrncRmrks" wrapping="true" text="{sepHeader>/REMARK_FINANCE_CLEARANCE}" visible="{parts: [ { path:'sepHeader>/Role'}, {path: 'sepHeader>/REMARK_FINANCE_CLEARANCE'}], formatter:'sap.abp.eSeparation.approve.Common.vis_clrnComments'}"/>
+											<Label text="IT Clearance comments" wrapping="true" visible="{parts: [ { path:'sepHeader>/Role'}, {path: 'sepHeader>/REMARK_IT_CLEARANCE'}], formatter:'sap.abp.eSeparation.approve.Common.vis_clrnComments'}"/>
+											<Text id="t_itClrncRmrks" wrapping="true" text="{sepHeader>/REMARK_IT_CLEARANCE}" visible="{parts: [ { path:'sepHeader>/Role'}, {path: 'sepHeader>/REMARK_IT_CLEARANCE'}], formatter:'sap.abp.eSeparation.approve.Common.vis_clrnComments'}"/>
+											<Label text="Admin Clearance comments" visible="{parts: [ { path:'sepHeader>/Role'}, {path: 'sepHeader>/REMARK_ADMIN_CLEARANCE'}], formatter:'sap.abp.eSeparation.approve.Common.vis_clrnComments'}" wrapping="true"/>
+											<Text id="t_infraClrncRmrks" wrapping="true" text="{sepHeader>/REMARK_ADMIN_CLEARANCE}" visible="{parts: [ { path:'sepHeader>/Role'}, {path: 'sepHeader>/REMARK_ADMIN_CLEARANCE'}], formatter:'sap.abp.eSeparation.approve.Common.vis_clrnComments'}"/>
+											<Label text="Editiorial Services Clearance comments" visible="{parts: [ { path:'sepHeader>/Role'}, {path: 'sepHeader>/REMARK_EDITOR_CLEARANCE'}], formatter:'sap.abp.eSeparation.approve.Common.vis_clrnComments'}" wrapping="true"/>
+											<Text id="t_editoClrncRmrks" wrapping="true" text="{sepHeader>/REMARK_EDITOR_CLEARANCE}" visible="{parts: [ { path:'sepHeader>/Role'}, {path: 'sepHeader>/REMARK_EDITOR_CLEARANCE'}], formatter:'sap.abp.eSeparation.approve.Common.vis_clrnComments'}"/>
+											<Label text="MAE Clearance comments" visible="{parts: [ { path:'sepHeader>/Role'}, {path: 'sepHeader>/Remark_dc_mae'}], formatter:'sap.abp.eSeparation.approve.Common.vis_clrnComments'}" wrapping="true"/>
+											<Text id="t_maeClrncRmrks" wrapping="true" text="{sepHeader>/Remark_dc_mae}" visible="{parts: [ { path:'sepHeader>/Role'}, {path: 'sepHeader>/Remark_dc_mae'}], formatter:'sap.abp.eSeparation.approve.Common.vis_clrnComments'}"/>
+											<Label text="ESM Clearance comments" visible="{parts: [ { path:'sepHeader>/Role'}, {path: 'sepHeader>/Remark_dc_esm'}], formatter:'sap.abp.eSeparation.approve.Common.vis_clrnComments'}" wrapping="true"/>
+											<Text id="t_esmClrncRmrks" wrapping="true" text="{sepHeader>/Remark_dc_esm}" visible="{parts: [ { path:'sepHeader>/Role'}, {path: 'sepHeader>/Remark_dc_esm'}], formatter:'sap.abp.eSeparation.approve.Common.vis_clrnComments'}"/>
+											<Label text="ESC Clearance comments" visible="{parts: [ { path:'sepHeader>/Role'}, {path: 'sepHeader>/Remark_dc_esc'}], formatter:'sap.abp.eSeparation.approve.Common.vis_clrnComments'}" wrapping="true"/>
+											<Text id="t_escClrncRmrks" wrapping="true" text="{sepHeader>/Remark_dc_esc}" visible="{parts: [ { path:'sepHeader>/Role'}, {path: 'sepHeader>/Remark_dc_esc'}], formatter:'sap.abp.eSeparation.approve.Common.vis_clrnComments'}"/>
+											
+											<!-- 	personale -->
+											<Label  text="Personnel F&amp;F comments"  wrapping="true"
+													visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_remarks_offboard_pers'}"/>
+											<Text  text="{sepHeader>/REMARK_ICARD_CLEARANCE}" wrapping="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_remarks_offboard_pers'}"/>
+									
+											
+										<!-- 	HR head -->
+											<Label  text="HR Head F&amp;F approval comments" wrapping="true"
+											 visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_remarks_offboard_hrhd'}"/>
+											<Text  text="{sepHeader>/RemarkHf}" wrapping="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_remarks_offboard_hrhd'}"/>
+											
+										<!-- 	Finance -->
+											<Label text="Finance F&amp;F comments"  wrapping="true"
+											 visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_remarks_offboard_fin'}"/>
+											<Text  text="{sepHeader>/RemarkFf}"  wrapping="true"
+											visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_remarks_offboard_fin'}"/>
+											
+										<!-- 	payroll -->
+											<Label  text="Payroll F&amp;F comments" wrapping="true"
+											 visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_remarks_offboard_payroll'}"/>
+											<Text  text="{sepHeader>/RemarkPa}" wrapping="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_remarks_offboard_payroll'}"/>
+
+
+<!--											<Label text="Clearance / No objection received from the IT Department after submission of the respective handover / Documents / materials etc."
+												   visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_clrnc'}">
+											</Label>
+											<Select id="clearance" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_clrnc'}" width="60px">
+												<core:Item key="Yes" text="Yes" />
+												<core:Item key="No" text="No" />
+											</Select>-->
+											<!--<Text text="{sepHeader>/Eadrt}"></Text>-->
+											
+											<Label text="Payment Method" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_process_radio'}"/>
+											<RadioButton  id="RBP-1" text="Electronic Transfer"  groupName="RP2" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_process_radio'}"
+														 wrapping="true" editable="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_hrhead'}">
+												
+											</RadioButton>
+											<RadioButton id="RBP-2" text="Cheque" groupName="RP2" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_process_radio'}"
+														 wrapping="true" editable="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_hrhead'}">
+											
+											</RadioButton>
+											
+	
+											
+											<Label text="Earned Leave Balance as on the Last Working Day" wrapping="true" required="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_el'}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_process'}"/>
+											<Input width="40%" id="off_ElbLwds" value="{sepHeader>/ElbLwd}" liveChange="onUpdELvBalAsLwd" type="Number" textAlign="left" maxLength="5" class="sapUiSmallMarginBottom"
+												   editable="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_el'}"
+												   visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_process'}"></Input>
+											<Input id="off_ElbLwdsRIp" value="{sepHeader>/ElbLwdRmks}" placeholder="Remarks for changes in 'EL Balance'" 
+												   editable="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_el'}"
+												   visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_ElbLwdsRIp'}"></Input>
+											
+											<Label text="Earned Leaves to be adjusted @Basic Salary" wrapping="true"  visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_process'}" />
+											<Text  width="40%" id="off_Leaveadjbsal" text="{sepHeader>/Leaveadjbsal}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_process'}"></Text>
+											
+											<Label text="Salary Payment to be made with Full and Final" wrapping="true" required="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_ff'}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_process'}" />
+											<Input id="off_Ffsaltopay" value="{sepHeader>/Ffsaltopay}" 
+												   editable="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_ff'}"
+												   visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_process'}"></Input>
+											<Input id="off_FfsaltopayRIp" value="{sepHeader>/FfsaltopayRmks}" placeholder="Remarks for changes 'EL Balance'"
+												   editable="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_ff'}"
+												   visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_FfsaltopayRIp'}"></Input>
+												   
+											<Label text="Leave Travel Allowance" wrapping="true" required="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_lta'}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_process'}" />
+											<!-- <Input width="30%" id="off_lta" value="{sepHeader>/Lta}" editable="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_lta'}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_process'}"></Input> -->
+											<Select id="off_lta" selectedKey="{sepHeader>/Lta}" enabled="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_lta'}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_process'}" width="130px">
+												<core:Item key="Y" text="Payable" />
+												<core:Item key="N" text="Not Payable" />
+											</Select>
+											<Input id="off_ltaRIp" value="{sepHeader>/LtaRmks}" placeholder="Remarks for changes 'LTA'" 
+												   editable="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_lta'}"
+												   visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_ltaRIp'}"></Input>
+											
+											<Label text="Gratuity" required="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_gt'}" />
+											<!-- <Input width="30%" id="off_Gratuity" value="{sepHeader>/Gratuity}" editable="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_gt'}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_process'}"></Input> -->
+											<Select id="off_Gratuity" selectedKey="{sepHeader>/Gratuity}" enabled="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_gt'}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_process'}" width="130px">
+												<core:Item key="" text="" />
+												<core:Item key="Y" text="Payable" />
+												<core:Item key="N" text="Not Payable" />
+											</Select>
+											<Input id="off_GratuityRIp" value="{sepHeader>/GratuityRmks}" placeholder="Remarks for changes 'Gratuity'"
+												   editable="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_gt'}"
+												   visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_GratuityRIp'}"></Input>
+											
+											<Label text="Night Allowance" required="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_na'}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_process'}" />
+											<Input id="off_Nightalownc" value="{sepHeader>/Nightalownc}" editable="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_na'}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_process'}"></Input>
+											<Input id="off_NightalowncRIp" value="{sepHeader>/NightalowncRmks}" placeholder="Remarks for changes 'Night Allowance'"
+												   editable="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_na'}"
+												   visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_NightalowncRIp'}"></Input>
+											
+											<Label text="Exgratia" required="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_ex'}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_process'}" />
+											<Input id="off_Exgratia" value="{sepHeader>/Exgratia}" editable="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_ex'}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_process'}"></Input>
+											<Input id="off_ExgratiaRIp" value="{sepHeader>/ExgratiaRmks}" placeholder="Remarks for changes 'Exgratia'"
+												   editable="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_na'}"
+												   visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_ExgratiaRIp'}"></Input>
+											
+											<Label text="Salary for Holiday Working" wrapping="true" required="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_shw'}"  visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_process'}"/>
+											<Input id="off_Salhldaywrk" value="{sepHeader>/Salhldaywrk}"  editable="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_shw'}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_process'}"></Input>
+											<Input id="off_SalhldaywrkRIp" value="{sepHeader>/SalhldaywrkRmks}" placeholder="Remarks for Changes in 'Salary for Holiday Working'"
+												   editable="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_na'}"
+												   visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_SalhldaywrkRIp'}"></Input>
+											
+											<Label text="Full and Final Amount" wrapping="true"
+												   required="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_ffa'}"
+												   visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_process_ffa'}"/>
+											<Input id="off_Ffamount" value="{sepHeader>/Ffamount}" maxLength="17" type="Number" class="sapUiSmallMarginBottom" textAlign="left" textDirection="LTR" width="130px"
+													editable="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_ffa'}"
+													visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_process_ffa'}"></Input>
+											
+										
+											
+<!--//////////////////////////////////// Begin of Clearance Details with Dropdown ////////////////////////////////////////////// -->
+							<!--Function Clearance-->
+											<Label text="Responsibilities" wrapping="true" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.fnctnClrnc'}"/>
+											<Select id="rc_rspnsblts" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.fnctnClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="Documents and Mails" wrapping="true" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.fnctnClrnc'}"/>
+											<Select id="rc_docMail" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.fnctnClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="Materials and Manuals" wrapping="true" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.fnctnClrnc'}"/>
+											<Select id="rc_matrlManls" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.fnctnClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="Departmental Assets" wrapping="true" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.fnctnClrnc'}"/>
+											<Select id="rc_deptAssts" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.fnctnClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											
+							<!--Finance Clearance-->
+											<Label text="Loans(Car/Housing/other)" wrapping="true" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.finClrnc'}"/>
+											<Select id="fc_loans" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.finClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="Advance outstanding" wrapping="true" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.finClrnc'}"/>
+											<Select id="fc_advOutstnd" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.finClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="Company lease accommodation" wrapping="true" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.finClrnc'}"/>
+											<Select id="fc_compLeasAcmdtn" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.finClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="Dues outstanding to Co-operatives" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.finClrnc'}" wrapping="true"/>
+											<Select id="fc_dueOutstndCopertv" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.finClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="Recovery for excess Mobile reimbursement claimed" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.finClrnc'}" wrapping="true"/>
+											<Select id="fc_recvrExsMobRembrsmnt" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.finClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											
+							<!--IT Clearance-->
+											<Label text="Desktop" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc2'}"/>
+											<Select id="ic_desktop" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc2'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+									
+											<Label text="Laptop" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc'}"/>
+											<Select id="ic_laptop" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="Data card" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc'}"/>
+											<Select id="ic_dtCard" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="Mobile" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc1'}"/>
+											<Select id="ic_mobil" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc1'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="SIM" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc1'}"/>
+											<Select id="ic_sim" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc1'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="External HDD" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc'}"/>
+											<Select id="ic_extHdd" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="DVD Writer" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc'}"/>
+											<Select id="ic_dvdWrtr" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="Additional Mobile" wrapping="true" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc'}"/>
+											<Select id="ic_addMobil" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="Additional SIM" wrapping="true" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc'}"/>
+											<Select id="ic_addSim" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											
+<!-- 											<Label text="Active Directory" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc'}"/>
+											<Select id="ic_actvDirctry" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="Desktop Central" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc'}"/>
+											<Select id="ic_dtopCntrl" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="Email ID" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc'}"/>
+											<Select id="ic_emailId" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="Group Email ID Ownership" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc'}"/>
+											<Select id="ic_grpEmlIdownshp" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="SAP ID" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc'}"/>
+											<Select id="ic_sapId" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="ATEX ID" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc'}"/>
+											<Select id="ic_atexId" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="ESS ID" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc'}"/>
+											<Select id="ic_essId" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="Internet Access Policy" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc'}"/>
+											<Select id="ic_intrntAcsPlcy" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="Other Applications" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc'}"/>
+											<Select id="ic_othrApps" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.itClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select> -->
+											
+							<!--Infra Clearance-->
+											<Label text="Cupboard Key(s)" wrapping="true" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.infrClrnc'}"/>
+											<Select id="ac_cupbrdKy" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.infrClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="Drawer Key(s)" wrapping="true" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.infrClrnc'}"/>
+											<Select id="ac_drwrKy" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.infrClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="Cabin Key(s)" wrapping="true" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.infrClrnc'}"/>
+											<Select id="ac_cbinKy" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.infrClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="Spike Buster/Extension cord" wrapping="true" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.infrClrnc'}"/>
+											<Select id="ac_spike" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.infrClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="Special Furniture(Wooden Chair etc.)" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.infrClrnc'}" wrapping="true"/>
+											<Select id="ac_spFurntr" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.infrClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="Car Usage Withdrawal" wrapping="true" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.infrClrnc'}"/>
+											<Select id="ac_carUsgWithdrwl" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.infrClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											
+							<!--Editorial Services Clearance-->
+												<Label text="Laptop" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.editClrnc1'}"/>
+											<Select id="ec_laptop" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.editClrnc1'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="Data Card" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.editClrnc1'}"/>
+											<Select id="ec_dataCard" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.editClrnc1'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+										
+											<Label text="External HDD" wrapping="true" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.editClrnc'}"/>
+											<Select id="ec_hdd" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.editClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="Camera and Charger" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.editClrnc'}"/>
+											<Select id="ec_camera" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.editClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="Lenses" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.editClrnc'}"/>
+											<Select id="ec_lens" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.editClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="Speedlight" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.editClrnc'}"/>
+											<Select id="ec_speedlight" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.editClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="Monopod" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.editClrnc'}"/>
+											<Select id="ec_ipad" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.editClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											
+											<Label text="Extender" wrapping="true" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.editClrnc'}"/>
+											<Select id="ec_voicRcrdr" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.editClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											
+											<Label text="Converter" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.editClrnc'}"/>
+											<Select id="ec_tab" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.editClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="Memory Card" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.editClrnc'}"/>
+											<Select id="ec_headPhone" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.editClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="Camera Battery and Charger" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.editClrnc'}"/>
+											<Select id="dc_camb_chgr" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.editClrnc'}" width="150px">
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Received" />
+												<core:Item key="No" text="Not Received" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											
+													
+									
+											<Label text="Social Media ID" wrapping="true" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_dbmae'}"/>
+											<Select id="dc_someid" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_dbmae'}" width="150px">	
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Deactivated" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="Online sites and tools" wrapping="true" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_dbmae'}"/>
+											<Select id="dc_onsitools" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_dbmae'}" width="150px">	
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Deactivated" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="Shared Drives/Google Drives" wrapping="true" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_dbmae'}"/>
+											<Select id="dc_drives" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_dbmae'}" width="150px">	
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Deactivated" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											
+											<Label text="VPN Access" wrapping="true" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_digiEdit'}"/>
+											<Select id="dc_vpn_acc" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_digiEdit'}" width="150px">	
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Deactivated" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+											<Label text="Email Deactivation" wrapping="true" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_digiEdit'}"/>
+											<Select id="dc_email_dact" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_digiEdit'}" width="150px">	
+												<core:Item key="" text="" />
+												<core:Item key="Yes" text="Yes" />
+												<core:Item key="No" text="No" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+										
+											<Label text="CMS Login" wrapping="true" required="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_cmslogin'}"/>
+											<Select id="dc_cms_login" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_cmslogin'}" width="150px">	
+												<core:Item key="" text="" />
+												<!--<core:Item key="Yes" text="Received" />-->
+												<core:Item key="Yes" text="Deactivated" />
+												<core:Item key="NA" text="Not Applicable" />
+											</Select>
+													
+									
+<!--////////////////////////////////////  End of Clearance Details with Dropdown  ////////////////////////////////////////////// -->
+										
+											<Label text="Updated Leave Balance" wrapping="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_UpdLvBal'}"/>
+											<Input id="updLvBal" value="{sepHeader>/LEAVEBAL_UPDATED}" textAlign="left" maxLength="5" type="Number" liveChange="onUpdLvBal" 
+													visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_UpdLvBal'}">
+												<layoutData>
+													<l:GridData span="XL1 L2 M3 S3" />
+												</layoutData>
+											</Input>
+											
+											<Label text="Received I-Card" wrapping="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_submCard'}" required="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.requiredIdCard'}"/>
+											<CheckBox id="sumbitIDCard" selected="{sepHeader>/ICARD_CLEARANCE}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_submCard'}"
+													  enabled="{parts:[{path:'sepHeader>/ICARD_CLEARANCE'}, {path:'sepHeader>/STATUS'}, {path:'sepHeader>/Role'}], formatter:'sap.abp.eSeparation.approve.Common.enbl_submCard'}"/>
+													  <!--enabled="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.enbl_submCard'}"/>-->
+													 
+													  
+												<Label text="Hold Release Letter" wrapping="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_holdRelLeter'}" />
+											<CheckBox id="holdRelLeter" selected="{sepHeader>/RL_FLAG}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_holdRelLeter'}" 
+											enabled="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.enbl_HoldRelLeter'}"/>
+										
+										
+											<Label text="Full and Final Settlement to be made" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_fandf'}" wrapping="true"/>
+											<CheckBox id="fandF" selected="{sepHeader>/FINAL_SETTLMENT_DONE}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_fandf'}"
+													  enabled="{parts:[{path:'sepHeader>/FINAL_SETTLMENT_DONE'}, {path:'sepHeader>/STATUS'}], formatter:'sap.abp.eSeparation.approve.Common.enbl_fandf'}"/>
+													  <!--enabled="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.enbl_fandf'}"/>-->
+											
+											<Label text="Full and Final cheque handed over to Employee"
+												   visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_fnfCheckhand'}" wrapping="true"/>
+											<DatePicker id="fnfCheckhand" class="sapUiSmallMarginEnd"
+												placeholder="Enter Date..." width="120px" value="{sepHeader>/CHEQUE_DATE}" change="onFnfCheckhand"
+												visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_fnfCheckhand'}">
+<!--												<layoutData>
+													<l:GridData span="XL3 L4 M4 S4" />
+												</layoutData>-->
+											</DatePicker>
+												<!--valueFormat="yyyyMMdd" displayFormat="long" -->
+												
+											<Label id="lb_appRemark" text="Remarks" required="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.rmrk_required'}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_Rmrk'}"/>
+											<TextArea id="ta_appRemark" value="{sepHeader>/remark}" rows="3" cols="20" maxLength="200" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_Rmrk'}">
+												<layoutData>
+													<l:GridData span="XL3 L5 M6 S6" />
+												</layoutData>
+											</TextArea>
+										</f:content>
+									</f:SimpleForm>
+								</u:blocks>
+							</u:ObjectPageSubSection>
+						</u:subSections>
+					</u:ObjectPageSection>
+					
+<!--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+					<u:ObjectPageSection title="" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_clrnc'}">
+						<u:subSections>
+							<u:ObjectPageSubSection title="">
+								<u:blocks>
+									<Panel>
+										<!--text="Clearance / No objection received from the IT Department after submission of the respective handover / Documents / materials etc."-->
+										<!--<Text text="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.disp_clrncText'}"-->
+										<Label text = "Remarks (Anything not received, having financial impact, should be mentioned in the Remarks below)" required="true" wrapping="true"
+											   visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_clrnc'}">
+										</Label>
+										<TextArea id="ta_clrncRemark" value="{sepHeader>/remark}" rows="3" cols="90" maxLength="200" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_clrnc'}">
+											<layoutData>
+												<l:GridData span="XL3 L5 M6 S6" linebreak="true"/>
+											</layoutData>
+										</TextArea>
+<!--										<Select id="clearance" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_clrnc'}">
+											<core:Item key="Yes" text="Yes" />
+											<core:Item key="No" text="No" />
+										</Select>-->
+
+									</Panel>
+								</u:blocks>
+							</u:ObjectPageSubSection>
+						</u:subSections>
+					</u:ObjectPageSection>
+<!--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+					
+					<u:ObjectPageSection title="Notes" visible="false">
+						<u:subSections>
+							<u:ObjectPageSubSection title="">
+								<u:blocks>
+									<Panel>
+										<List items="{notes>/results}">
+											<FeedListItem sender="{notes>Eaibu}"
+												senderActive="false"
+												timestamp="{path:'notes>Eaiod',
+									  formatter:'sap.abp.eSeparation.approve.Common.formatDate'}"
+												text="{notes>Earmk}" showIcon="false"></FeedListItem>
+										</List>
+										<Button type="Transparent" text="Add" icon="sap-icon://add"
+											press="addNotes"></Button>
+									</Panel>
+								</u:blocks>
+							</u:ObjectPageSubSection>
+						</u:subSections>
+					</u:ObjectPageSection>
+					<u:ObjectPageSection title="Attachments" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_Attachment'}">
+						<u:subSections>
+							<u:ObjectPageSubSection title="">
+								<u:blocks>
+									<UploadCollection id="uploadCollId" fileType="pdf,doc,docx,png,jpeg,jpg,tif,msg"
+										typeMissmatch="handleTypeMissmatch" maximumFilenameLength="55"
+										maximumFileSize="50" multiple="false" 
+										uploadEnabled="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_AttachmentBtn'}"
+										items="{attachment>/results}" change="onChangeAttachment"
+										uploadComplete="onUploadAttachment" fileDeleted="onFileDeleted">
+										<items>
+											<UploadCollectionItem documentId="{attachment>Easqn}"
+												contributor="{attachment>Uname}" fileName="{attachment>Filename}"
+												mimeType="{attachment>Mimetype}" url="{attachment>Url}"
+												uploadedDate="{attachment>Date}" visibleEdit="false"
+												visibleDelete="{parts:[{path:'attachment>Flag'}, {path:'sepHeader>/Role'}], formatter:'sap.abp.eSeparation.approve.Common.formatDelete'}"
+												enableDelete="{parts:[{path:'attachment>Flag'}, {path:'sepHeader>/Role'}], formatter:'sap.abp.eSeparation.approve.Common.formatDelete'}">
+											</UploadCollectionItem>
+												
+											<!-- 	visibleDelete="{path:'attachment>Flag',
+														formatter:'sap.abp.eSeparation.approve.Common.formatDelete'}"
+												enableDelete="{path:'attachment>Flag',
+														formatter:'sap.abp.eSeparation.approve.Common.formatDelete'}">
+											</UploadCollectionItem> -->
+										</items>
+									</UploadCollection>
+								</u:blocks>
+							</u:ObjectPageSubSection>
+						</u:subSections>
+					</u:ObjectPageSection>
+				</u:sections>
+			</u:ObjectPageLayout>
+		</content>
+		<footer>
+			<Bar translucent="true" design="Auto">
+				<contentRight>
+					<Button text="Save" press="onSave" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_Save'}"></Button>
+					<Button text="Print" press="onCallPDF" enabled="{path:'sepHeader>/STATUS', formatter:'sap.abp.eSeparation.approve.Common.enb_Print'}" 
+														   visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_Print'}"></Button>
+					<Button text="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.disp_approveText'}" type="Accept" press="onApprove"></Button>
+					<Button text="Reject" type="Reject" press="onReject" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_Reject'}"></Button>
+					<Button text="Forward" type="Emphasized" press="onForward" visible="false"></Button>					
+				</contentRight>
+			</Bar>
+		</footer>
+	</Page>
+</mvc:View>

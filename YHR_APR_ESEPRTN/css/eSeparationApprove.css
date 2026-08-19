@@ -1,0 +1,92 @@
+.pageEseparation {
+	background-image: url('../img/home.jpg');
+	background-repeat: no-repeat;
+}
+
+.sapUiFormResGrid > div {
+	background-color: rgba(255, 255, 255, 0);
+}
+
+.sapMTile {
+	border: 1px solid #0874BC;
+	border-radius: 10px;
+	color: #000000;
+	opacity: 0.9;
+}
+
+.sapMOHRTitleTextWrappable {
+	color: #000000;
+}
+
+.sapMObjectNumberText {
+	color: #000000;
+}
+
+.sapMObjectNumberUnit {
+	color: #000000;
+}
+
+.sapMOHTitle h1 .sapMText {
+	color: #000000;
+}
+
+.sapMObjLNumber {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 1rem;
+	font-weight: normal;
+	color: #000000;
+}
+
+.sapMObjectNumber {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	word-wrap: normal;
+	color: #ffffff;
+}
+
+.object {
+	color: #000000;
+}
+
+.sapMOH .sapMOHAttr .sapMObjectAttributeTitle, .sapMOH .sapMOHAttr .sapMObjectAttributeText,
+	.sapMOH .sapMOHAttr .sapMObjectAttributeColon {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 0.875rem;
+	font-weight: normal;
+	color: #ffffff;
+}
+
+.sapMOHRTitleTextContainer {
+	margin: 0.4rem 0.5rem 0 0;
+	display: inline-block;
+	position: relative;
+	color: #ffffff;
+}
+
+.sapMObjStatusNone>.sapMObjStatusText, .sapMObjStatusNone>.sapMObjStatusIcon
+	{
+	color: #ffffff;
+}
+
+.sapMITBContainerContent {
+	position: relative;
+	opacity: 0.9;
+	padding: 0;
+	margin-top: 0;
+	border-top: 0.0625rem solid #dddddd;
+	-webkit-box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.05);
+	box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.05);
+	border-bottom: 0.0625rem solid #dddddd;
+}
+
+.lineChart {
+	opacity: 0.9;
+	background-color: #FFFFFF; /* #FFF0F0; */
+}
+
+.sapMOHR {
+	background: rgba(255, 255, 255, 0);
+	border-bottom: 0px solid #e5e5e5;
+	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+}

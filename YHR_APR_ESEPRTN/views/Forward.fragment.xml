@@ -1,0 +1,17 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns="sap.m"
+	class="sapUiSizeCompact">
+	<f:SimpleForm minWidth="1024" maxContainerCols="2"
+		layout="ResponsiveGridLayout" labelSpanL="4" labelSpanM="4"
+		emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2">
+		<f:content>
+			<Label text="User" required="true" />
+			<Select id="userSelectId" forceSelection="false" items="{user>/results}">
+				<core:Item key="{user>FwdEaaid}" text="{user>Ename}" />
+			</Select>
+			<Label></Label>
+			<TextArea id="remarkForwardId" rows="4" width="100%"
+				placeholder="Add remarks"></TextArea>
+		</f:content>
+	</f:SimpleForm>
+</core:FragmentDefinition>
