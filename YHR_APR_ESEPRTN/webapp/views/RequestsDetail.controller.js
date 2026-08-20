@@ -229,12 +229,12 @@ sap.ui
 								+ date1.substring(6));
 						var today = new Date();
 						if ((today > secondDate)
-								&& dateRelieveEditble === "true") {
+								&& (dateRelieveEditble === true || dateRelieveEditble === "true")) {
 							sap.m.MessageToast
 									.show("'Proposed last working day' should not be past date");
 							return;
 						} else if ((firstDate < secondDate)
-								&& dateRelieveEditble === "true") {
+								&& (dateRelieveEditble === true || dateRelieveEditble === "true")) {
 							sap.m.MessageToast
 									.show("'Proposed last working day' should not be greater than 'Last working day proposed by System'");
 							return;
@@ -660,6 +660,7 @@ sap.ui
 								icon : sap.m.MessageBox.Icon.ERROR,
 								title : "Error Message"
 							});
+							return;
 						};
 
 						var clrncRemark = this.getView().byId("ta_clrncRemark")
@@ -823,7 +824,7 @@ sap.ui
 								.getValue();
 						if (remark === ""
 								&& (this.getView().byId("ta_clrncRemark")
-										.getValue() !== "" || this.getView()
+										.getValue() !== "" && this.getView()
 										.byId("ta_clrncRemark").getValue() !== " ")) {
 							remark = this.getView().byId("ta_clrncRemark")
 									.getValue();
@@ -838,7 +839,7 @@ sap.ui
 								+ date1.substring(6));
 						var today = new Date();
 						if ((today > secondDate)
-								&& dateRelieveEditble === "true") {
+								&& (dateRelieveEditble === true || dateRelieveEditble === "true")) {
 							sap.m.MessageBox
 									.show(
 											"'Proposed last working day' should not be past date",
@@ -848,7 +849,7 @@ sap.ui
 											});
 							return;
 						} else if ((firstDate < secondDate)
-								&& dateRelieveEditble === "true") {
+								&& (dateRelieveEditble === true || dateRelieveEditble === "true")) {
 							sap.m.MessageBox
 									.show(
 											"'Proposed last working day' should not be greater than 'Last working day proposed by System'",
@@ -861,8 +862,26 @@ sap.ui
 
 						// soc offboaard process validation
 
-					
-						if (this.getView().byId("off_ElbLwds").getVisible()) {
+						var ElbLwds = "";
+						var ElbLwdsRIp = "";
+						var Leaveadjbsal = "";
+						var Ffsaltopay = "";
+						var FfsaltopayRIp = "";
+						var lta = "";
+						var ltaRIp = "";
+						var Gratuity = "";
+						var GratuityRIp = "";
+						var Nightalownc = "";
+						var NightalowncRIp = "";
+						var Exgratia = "";
+						var ExgratiaRIp = "";
+						var Salhldaywrk = "";
+						var SalhldaywrkRIp = "";
+						var Ffamount = "";
+						var Fftranstype = "";
+
+						var oElbLwds = this.getView().byId("off_ElbLwds");
+						if (oElbLwds && oElbLwds.getVisible()) {
 							var Error = this.validation("off_ElbLwds");
 							if (Error > 0) {
 								sap.m.MessageBox.show(
@@ -872,11 +891,11 @@ sap.ui
 										});
 								return ;
 							}else {
-								var ElbLwds = this.getView().byId("off_ElbLwds")
-								.getValue()
+								var ElbLwds = oElbLwds.getValue()
 							}
 						}
-						if (this.getView().byId("off_ElbLwdsRIp").getVisible()) {
+						var oElbLwdsRIp = this.getView().byId("off_ElbLwdsRIp");
+						if (oElbLwdsRIp && oElbLwdsRIp.getVisible()) {
 							var Error = this.validation("off_ElbLwdsRIp")
 							if (Error > 0) {
 									sap.m.MessageBox.show(
@@ -886,17 +905,15 @@ sap.ui
 											});
 									return ;
 								}else {
-								var ElbLwdsRIp = this.getView().byId("off_ElbLwdsRIp")
-								.getValue()
+								var ElbLwdsRIp = oElbLwdsRIp.getValue()
 							}
 						}
-						if (this.getView().byId("off_Leaveadjbsal")
-								.getVisible()) {
-							//this.validation("off_Leaveadjbsal");
-							var Leaveadjbsal = this.getView().byId(
-									"off_Leaveadjbsal").getText();
+						var oLeaveadjbsal = this.getView().byId("off_Leaveadjbsal");
+						if (oLeaveadjbsal && oLeaveadjbsal.getVisible()) {
+							var Leaveadjbsal = oLeaveadjbsal.getText();
 						}
-						if (this.getView().byId("off_Ffsaltopay").getVisible()) {
+						var oFfsaltopay = this.getView().byId("off_Ffsaltopay");
+						if (oFfsaltopay && oFfsaltopay.getVisible()) {
 							var Error = this.validation("off_Ffsaltopay");
 							if (Error > 0) {
 								sap.m.MessageBox.show(
@@ -906,11 +923,11 @@ sap.ui
 										});
 								return ;
 							}else {
-							var Ffsaltopay = this.getView().byId(
-									"off_Ffsaltopay").getValue();
+							var Ffsaltopay = oFfsaltopay.getValue();
 							}
 						}
-						if (this.getView().byId("off_FfsaltopayRIp").getVisible()) {
+						var oFfsaltopayRIp = this.getView().byId("off_FfsaltopayRIp");
+						if (oFfsaltopayRIp && oFfsaltopayRIp.getVisible()) {
 							var Error = this.validation("off_FfsaltopayRIp");
 							if (Error > 0) {
 								sap.m.MessageBox.show(
@@ -920,11 +937,11 @@ sap.ui
 										});
 								return ;
 							}else {
-								var FfsaltopayRIp = this.getView().byId(
-										"off_FfsaltopayRIp").getValue();
+								var FfsaltopayRIp = oFfsaltopayRIp.getValue();
 							}
 						}
-						if (this.getView().byId("off_lta").getVisible()) {
+						var oLta = this.getView().byId("off_lta");
+						if (oLta && oLta.getVisible()) {
 							var Error = this.validation("off_lta");
 							if (Error > 0) {
 								sap.m.MessageBox.show(
@@ -934,11 +951,11 @@ sap.ui
 										});
 								return ;
 							}else {
-								//var lta = this.getView().byId("off_lta").getValue();
-								var lta = this.getView().byId("off_lta").getSelectedKey();
+								var lta = oLta.getSelectedKey();
 							}
 						}
-						if (this.getView().byId("off_ltaRIp").getVisible()) {
+						var oLtaRIp = this.getView().byId("off_ltaRIp");
+						if (oLtaRIp && oLtaRIp.getVisible()) {
 							var Error = this.validation("off_ltaRIp");
 							if (Error > 0) {
 								sap.m.MessageBox.show(
@@ -948,10 +965,11 @@ sap.ui
 										});
 								return ;
 							}else {
-								var ltaRIp = this.getView().byId("off_ltaRIp").getValue();
+								var ltaRIp = oLtaRIp.getValue();
 							}
 						}
-						if (this.getView().byId("off_Gratuity").getVisible()) {
+						var oGratuity = this.getView().byId("off_Gratuity");
+						if (oGratuity && oGratuity.getVisible()) {
 							var Error = this.validation("off_Gratuity");
 							if (Error > 0) {
 								sap.m.MessageBox.show(
@@ -961,11 +979,11 @@ sap.ui
 										});
 								return ;
 							}else {
-								//var Gratuity = this.getView().byId("off_Gratuity").getValue();
-								var Gratuity = this.getView().byId("off_Gratuity").getSelectedKey();
+								var Gratuity = oGratuity.getSelectedKey();
 							}
 						}
-						if (this.getView().byId("off_GratuityRIp").getVisible()) {
+						var oGratuityRIp = this.getView().byId("off_GratuityRIp");
+						if (oGratuityRIp && oGratuityRIp.getVisible()) {
 							var Error = this.validation("off_GratuityRIp");
 							if (Error > 0) {
 								sap.m.MessageBox.show(
@@ -975,10 +993,11 @@ sap.ui
 										});
 								return ;
 							}else {
-								var GratuityRIp = this.getView().byId("off_GratuityRIp").getValue();
+								var GratuityRIp = oGratuityRIp.getValue();
 							}
 						}
-						if (this.getView().byId("off_Nightalownc").getVisible()) {
+						var oNightalownc = this.getView().byId("off_Nightalownc");
+						if (oNightalownc && oNightalownc.getVisible()) {
 							var Error = this.validation("off_Nightalownc");
 							if (Error > 0) {
 								sap.m.MessageBox.show(
@@ -988,11 +1007,11 @@ sap.ui
 										});
 								return ;
 							}else {
-								var Nightalownc = this.getView().byId(
-										"off_Nightalownc").getValue();
+								var Nightalownc = oNightalownc.getValue();
 							}
 						}
-						if (this.getView().byId("off_NightalowncRIp").getVisible()) {
+						var oNightalowncRIp = this.getView().byId("off_NightalowncRIp");
+						if (oNightalowncRIp && oNightalowncRIp.getVisible()) {
 							var Error = this.validation("off_NightalowncRIp");
 							if (Error > 0) {
 								sap.m.MessageBox.show(
@@ -1002,11 +1021,11 @@ sap.ui
 										});
 								return ;
 							}else {
-								var NightalowncRIp = this.getView().byId(
-										"off_NightalowncRIp").getValue();
+								var NightalowncRIp = oNightalowncRIp.getValue();
 							}
 						}
-						if (this.getView().byId("off_Exgratia").getVisible()) {
+						var oExgratia = this.getView().byId("off_Exgratia");
+						if (oExgratia && oExgratia.getVisible()) {
 							var Error = this.validation("off_Exgratia");
 							if (Error > 0) {
 								sap.m.MessageBox.show(
@@ -1016,11 +1035,11 @@ sap.ui
 										});
 								return ;
 							}else {
-								var Exgratia = this.getView().byId("off_Exgratia")
-										.getValue();
+								var Exgratia = oExgratia.getValue();
 							}
 						}
-						if (this.getView().byId("off_ExgratiaRIp").getVisible()) {
+						var oExgratiaRIp = this.getView().byId("off_ExgratiaRIp");
+						if (oExgratiaRIp && oExgratiaRIp.getVisible()) {
 							var Error = this.validation("off_ExgratiaRIp");
 							if (Error > 0) {
 								sap.m.MessageBox.show(
@@ -1030,11 +1049,11 @@ sap.ui
 										});
 								return ;
 							}else {
-								var ExgratiaRIp = this.getView().byId("off_ExgratiaRIp")
-										.getValue()
+								var ExgratiaRIp = oExgratiaRIp.getValue();
 							}
 						}
-						if (this.getView().byId("off_Salhldaywrk").getVisible()) {
+						var oSalhldaywrk = this.getView().byId("off_Salhldaywrk");
+						if (oSalhldaywrk && oSalhldaywrk.getVisible()) {
 							var Error = this.validation("off_Salhldaywrk");
 							if (Error > 0) {
 								sap.m.MessageBox.show(
@@ -1044,11 +1063,11 @@ sap.ui
 										});
 								return ;
 							}else {
-								var Salhldaywrk = this.getView().byId(
-										"off_Salhldaywrk").getValue();
+								var Salhldaywrk = oSalhldaywrk.getValue();
 							}
 						}
-						if (this.getView().byId("off_SalhldaywrkRIp").getVisible()) {
+						var oSalhldaywrkRIp = this.getView().byId("off_SalhldaywrkRIp");
+						if (oSalhldaywrkRIp && oSalhldaywrkRIp.getVisible()) {
 							var Error = this.validation("off_SalhldaywrkRIp");
 							if (Error > 0) {
 								sap.m.MessageBox.show(
@@ -1058,11 +1077,11 @@ sap.ui
 										});
 								return ;
 							}else {
-								var SalhldaywrkRIp = this.getView().byId(
-										"off_SalhldaywrkRIp").getValue();
+								var SalhldaywrkRIp = oSalhldaywrkRIp.getValue();
 							}
 						}
-						if (this.getView().byId("off_Ffamount").getVisible()) {
+						var oFfamount = this.getView().byId("off_Ffamount");
+						if (oFfamount && oFfamount.getVisible()) {
 							var Error = this.validation("off_Ffamount");
 							if (Error > 0) {
 								sap.m.MessageBox.show(
@@ -1072,14 +1091,13 @@ sap.ui
 										});
 								return ;
 							}else {
-								var Ffamount = this.getView().byId("off_Ffamount")
-										.getValue();
+								var Ffamount = oFfamount.getValue();
 							}
 						}
-						if (this.getView().byId("RBP-1").getVisible()) {
-							//this.validation("RBP-1");
+						var oRBP1 = this.getView().byId("RBP-1");
+						if (oRBP1 && oRBP1.getVisible()) {
 							var Fftranstype = "";
-							this.getView().byId("RBP-1").getSelected() === true ? Fftranstype = "EL"
+							oRBP1.getSelected() === true ? Fftranstype = "EL"
 									: Fftranstype = "PA";
 						}
 
@@ -1760,11 +1778,19 @@ sap.ui
 																			oError) {
 																		sap.ui.core.BusyIndicator
 																				.hide();
-																		var json = JSON
-																				.parse(oError.response.body);
+																		var errMsg = "An error occurred while processing the request.";
+																		try {
+																			var json = JSON
+																					.parse(oError.response.body);
+																			errMsg = json.error.message.value;
+																		} catch (e) {
+																			if (oError && oError.message) {
+																				errMsg = oError.message;
+																			}
+																		}
 																		sap.m.MessageBox
 																				.show(
-																						json.error.message.value,
+																						errMsg,
 																						{
 																							icon : sap.m.MessageBox.Icon.ERROR,
 																							title : "Error Message",
@@ -1958,11 +1984,19 @@ sap.ui
 											debugger;
 										},
 										function(oError) {
-											var json = JSON
-													.parse(oError.response.body);
+											var errMsg = "An error occurred while deleting the attachment.";
+											try {
+												var json = JSON
+														.parse(oError.response.body);
+												errMsg = json.error.message.value;
+											} catch (e) {
+												if (oError && oError.message) {
+													errMsg = oError.message;
+												}
+											}
 											sap.m.MessageBox
 													.show(
-															json.error.message.value,
+															errMsg,
 															{
 																icon : sap.m.MessageBox.Icon.ERROR,
 																title : "Error Message",
