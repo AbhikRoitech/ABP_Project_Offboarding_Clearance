@@ -321,16 +321,18 @@
 												   editable="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_ff'}"
 												   visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_FfsaltopayRIp'}"></Input>
 												   
-											<!-- <Label text="Leave Travel Allowance" wrapping="true" required="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_lta'}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_process'}" />
-											<Select id="off_lta" selectedKey="{sepHeader>/Lta}" enabled="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_lta'}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_process'}" width="130px">
+											<!-- <Label text="Leave Travel Allowance" wrapping="true" required="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_lta'}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_process'}" /> -->
+											<!-- <Input width="30%" id="off_lta" value="{sepHeader>/Lta}" editable="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_lta'}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_process'}"></Input> -->
+											<!-- <Select id="off_lta" selectedKey="{sepHeader>/Lta}" enabled="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_lta'}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_process'}" width="130px">
 												<core:Item key="Y" text="Payable" />
 												<core:Item key="N" text="Not Payable" />
 											</Select> -->
+											<Label text="Short Notice Deduction @Basic" wrapping="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_ShNtDedction'}"/>
+											<Text id="shortNoticeDdctn1" text="{sepHeader>/SHORTNOTICE_Deduction}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_ShNtDedction'}"/>
+
 											<!-- <Input id="off_ltaRIp" value="{sepHeader>/LtaRmks}" placeholder="Remarks for changes 'LTA'" 
 												   editable="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_lta'}"
 												   visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_ltaRIp'}"></Input> -->
-											<Label text="Short Notice Deduction @Basic" wrapping="true" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_ShNtDedction'}"/>
-											<Text id="shortNoticeDdctn1" text="{sepHeader>/SHORTNOTICE_Deduction}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_ShNtDedction'}"/>
 											
 											<Label text="Gratuity" required="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_gt'}" />
 											<!-- <Input width="30%" id="off_Gratuity" value="{sepHeader>/Gratuity}" editable="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_gt'}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_process'}"></Input> -->
