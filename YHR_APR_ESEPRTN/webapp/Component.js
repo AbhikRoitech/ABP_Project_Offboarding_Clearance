@@ -3,10 +3,7 @@ jQuery.sap.require("sap.m.MessageBox");
 jQuery.sap.require("sap.abp.eSeparation.approve.Common");
 jQuery.sap.declare("sap.abp.eSeparation.approve.Component");
 
-sap.ui.core.UIComponent
-		.extend(
-				"sap.abp.eSeparation.approve.Component",
-				{
+sap.ui.core.UIComponent.extend("sap.abp.eSeparation.approve.Component", {
 					metadata : {
 						includes : [],
 						dependencies : { // external dependencies
