@@ -187,7 +187,7 @@
 <!--  										    <Text text="{sepHeader>/NtcprdOffer}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_fiedls'}"></Text> -->
 											
 											<Label text="Adjustment of Leave against Short Notice" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_fiedls'}" wrapping="true"/>
-											<Input  id="leaveadjASN" type="Number" textAlign="left" maxLength="5" class="sapUiSmallMarginBottom" value="0" editable="false"
+											<Input  id="leaveadjASN" type="Number" textAlign="left" maxLength="5" class="sapUiSmallMarginBottom" value="{sepHeader>/Leaveadj}" editable="false"
 													liveChange="onshrtNtcWvr" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_fiedls'}">
 											<layoutData>
 													<l:GridData span="XL1 L1 M1 S3" />
