@@ -310,7 +310,7 @@
 												   editable="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_el'}"
 												   visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_ElbLwdsRIp'}"></Input>
 											
-											<Label text="Earned Leaves to be adjusted @Wages" wrapping="true"  visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_process'}" />
+											<Label text="Earned Leave to be adjusted @Wages" wrapping="true"  visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_process'}" />
 											<Text  width="40%" id="off_Leaveadjbsal" text="{sepHeader>/Leaveadjbsal}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_process'}"></Text>
 											
 											<Label text="Salary Payment to be made with Full and Final" wrapping="true" required="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.edit_offboard_ff'}" visible="{path:'sepHeader>/Role', formatter:'sap.abp.eSeparation.approve.Common.vis_offboard_process'}" />
