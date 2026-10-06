@@ -109,11 +109,8 @@ sap.ui
 												thisInst.getView().byId("RBP-1").setSelected(true);
 											}
 											
-											var lvadj= thisInst.getView().byId("leaveadjASN").getValue();
-											var sn = thisInst.getView().byId("shortNoticeDdctn").getText();
 											var lvbal = thisInst.getView().byId("off_ElbLwds").getValue();
-											var earn = lvbal - lvadj -sn;
-											thisInst.getView().byId("off_Leaveadjbsal").setText(earn); 
+											thisInst.getView().byId("off_Leaveadjbsal").setText(lvbal); 
 											
 											
 										});
@@ -407,20 +404,21 @@ sap.ui
 						}
 					},
 
+					onShrtNtcDedctnChng : function(oEvent) {
+						var val = oEvent.getParameter("value");
+						this.getView().byId("shortNoticeDdctn").setText(val);
+					},
+
 					onUpdELvBalAsLwd : function() {
-						var lvadj= this.getView().byId("leaveadjASN").getValue();
-						var sn = this.getView().byId("shortNoticeDdctn").getText();
 						var updLvBal = this.getView().byId("off_ElbLwds").getValue();
-						
+
 						if ((updLvBal < 0 || updLvBal > 99)
 								&& this.getView().byId("updLvBal").getVisible() === true) {
 							sap.m.MessageToast
 									.show("Please enter correct 'Updated Leave Balance'");
-							// this.getView().byId("updLvBal").setValue("");
 							return;
 						} else {
-							var earn = updLvBal - lvadj -sn;
-							this.getView().byId("off_Leaveadjbsal").setText(earn); 
+							this.getView().byId("off_Leaveadjbsal").setText(updLvBal);
 						}
 					},
 					/*

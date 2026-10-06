@@ -334,6 +334,14 @@ sap.abp.eSeparation.approve.Common = {
 		}
 	},
 	
+	edit_offboard_snd: function(oRole){
+		if(oRole==="HF" || oRole==="PC" ) {
+			return true;
+		}else{
+			return false;
+		}
+	},
+
 	edit_offboard_lta: function(oRole){
 		if(oRole==="PC" || oRole === "HF" ) {
 			return true;
